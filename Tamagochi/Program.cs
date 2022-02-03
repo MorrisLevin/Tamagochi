@@ -11,6 +11,7 @@ namespace Tamagochi
             List<Tamagucci> tamaguccis = new List<Tamagucci>();
 
             tamaguccis.Add(new Tamagucci());
+            Player player = new Player();
 
             string answer = "";
 
@@ -26,34 +27,60 @@ namespace Tamagochi
 
                 DateTime start = DateTime.Now;
 
-                Console.WriteLine($"Do you want to 1. Teach {tamaguccis[i].name} a new word? 2. Say hi to {tamaguccis[i].name}? 3. Feed {tamaguccis[i].name}? 4. Do nothing?  5. Make a new tomagotchi? 6. Switch your tamagotchi?");
+                Console.WriteLine($"Do you want to 1. Teach {tamaguccis[i].name} a new word? 2. Say hi to {tamaguccis[i].name}? 3. Feed {tamaguccis[i].name}? 4. Do nothing?  5. Make a new tomagotchi? 6. Switch your tamagotchi? 7. Work and earn money?");
 
                 answer = Console.ReadLine();
 
                 if (answer == "1")
                 {
+                    if (player.HasMoneyLeft() == true)
+                    {
 
-                    Console.WriteLine($"What new word would you like to teach {tamaguccis[i].name}?");
 
-                    string w = Console.ReadLine();
 
-                    tamaguccis[i].Teach(w);
+
+                        Console.WriteLine($"What new word would you like to teach {tamaguccis[i].name}?");
+
+                        string w = Console.ReadLine();
+
+                        tamaguccis[i].Teach(w);
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have no money to do that task. You need to work to get money");
+                    }
 
                 }
                 else if (answer == "2")
                 {
 
-                    Console.WriteLine($"You said hi to {tamaguccis[i].name}. {tamaguccis[i].name} says: ");
+                    if (player.HasMoneyLeft() == true)
+                    {
 
-                    tamaguccis[i].Hi();
+                        Console.WriteLine($"You said hi to {tamaguccis[i].name}. {tamaguccis[i].name} says: ");
+
+                        tamaguccis[i].Hi();
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have no money to do that task. You need to work to get money");
+                    }
 
                 }
                 else if (answer == "3")
                 {
+                    if (player.HasMoneyLeft() == true)
+                    {
 
-                    tamaguccis[i].Feed();
+                        tamaguccis[i].Feed();
 
-                    Console.WriteLine($"You fed {tamaguccis[i].name}. ");
+                        Console.WriteLine($"You fed {tamaguccis[i].name}. ");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have no money to do that task. You need to work to get money");
+                    }
 
                 }
                 else if (answer == "4")
@@ -66,8 +93,16 @@ namespace Tamagochi
                 }
                 else if (answer == "5")
                 {
-                    tamaguccis.Add(new Tamagucci());
+                    if (player.HasMoneyLeft() == true)
+                    {
+                        tamaguccis.Add(new Tamagucci());
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have no money to do that task. You need to work to get money");
+                    }
                 }
+
                 else if (answer == "6")
                 {
                     Console.WriteLine("Write down the name of the tamagothi you want to choose.");
@@ -80,6 +115,10 @@ namespace Tamagochi
                         Console.WriteLine("That is not a Tamagothi.");
 
                     }
+                }
+                else if (answer == "7")
+                {
+                    player.Money();
                 }
 
                 DateTime end = DateTime.Now;
