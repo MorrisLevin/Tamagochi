@@ -6,9 +6,14 @@ namespace Tamagochi
 {
     public class Tamagucci
     {
+
+
         private int hunger = 0;
 
         private int boredom = 0;
+
+
+
 
         private List<string> words = new List<string>() { "Hello" };
 
@@ -16,14 +21,25 @@ namespace Tamagochi
 
         private Random generator = new Random();
 
-        public string name = "Tamagochi";
-
-        public void Feed()
+        public string name = "";
+        public Tamagucci()
         {
 
-            Tick();
 
-            hunger -= 3;
+            Console.WriteLine("Name your Tamagochi: ");
+
+            name = Console.ReadLine();
+
+            Console.WriteLine($"Your tamagochi's name is now {name}");
+
+        }
+        public void Feed()
+        {
+            int t = generator.Next(1, 5);
+
+
+            hunger -= t;
+            Tick();
 
 
         }
@@ -35,24 +51,32 @@ namespace Tamagochi
 
             Console.WriteLine(words[i]);
 
-            Tick();
 
             ReduceBoredom();
+            Tick();
 
         }
 
         public void Teach(string word)
         {
             words.Add(word);
-            Tick();
 
             ReduceBoredom();
+            Tick();
         }
+
+
+
+
 
         public void Tick()
         {
-            boredom += 1;
-            hunger += 1;
+
+            int r = generator.Next(1, 3);
+            int t = generator.Next(1, 3);
+
+            boredom += r;
+            hunger += t;
 
             if (boredom == 10)
             {
@@ -85,11 +109,16 @@ namespace Tamagochi
 
         private void ReduceBoredom()
         {
-            boredom -= 3;
+            int b = generator.Next(1, 5);
+
+
+            boredom -= b;
+            Tick();
+
         }
 
 
 
-
+      
     }
 }
