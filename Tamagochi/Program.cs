@@ -12,6 +12,7 @@ namespace Tamagochi
 
             tamaguccis.Add(new Tamagucci());
             Player player = new Player();
+            PersonalGucci pgucci = new PersonalGucci();
 
             string answer = "";
 
@@ -21,18 +22,20 @@ namespace Tamagochi
             int i = 0;
 
 
-
+            //Menas isAlive är sant så spelas loopen om och om igen.
             while (tamaguccis[i].GetAlive() == true)
             {
-
+                //Mäter tiden från när loopen börjar/börjar om igen.
                 DateTime start = DateTime.Now;
-
-                Console.WriteLine($"Do you want to 1. Teach {tamaguccis[i].name} a new word? 2. Say hi to {tamaguccis[i].name}? 3. Feed {tamaguccis[i].name}? 4. Do nothing?  5. Make a new tomagotchi? 6. Switch your tamagotchi? 7. Work and earn money?");
+                //Spelaren får välja vad dem vill göra.
+                Console.WriteLine($"Do you want to 1. Teach {tamaguccis[i].name} a new word? 2. Say hi to {tamaguccis[i].name}? 3. Feed {tamaguccis[i].name}? 4. Do nothing?  5. Make a new tomagotchi? 6. Switch your tamagotchi? 7. Work and earn money? 8. Check {tamaguccis[i].name}'s level?");
 
                 answer = Console.ReadLine();
 
                 if (answer == "1")
                 {
+
+                    //Om spelaren har mindre money än 1, så kan man inte avsluta den action som man vill.
                     if (player.HasMoneyLeft() == true)
                     {
 
@@ -106,9 +109,13 @@ namespace Tamagochi
                 else if (answer == "6")
                 {
                     Console.WriteLine("Write down the name of the tamagothi you want to choose.");
+
+                    //Spelaren skriver ner namnet på Tamagothcin som dem vill spela med. Om validAnswer, alltså namnet dem skriver passar med en av tamagotchin i listan, så byts tamagotchin ut.
                     string choice = Console.ReadLine();
                     bool validAnswer = tamaguccis.Any(t => t.name == choice);
 
+
+                    //Om svaret inte passar en Tamagotchi, så svarar programmet med att den inte finns, och man måste skriva om.
                     i = tamaguccis.FindIndex(0, t => t.name == choice);
                     if (validAnswer == false)
                     {
@@ -119,22 +126,35 @@ namespace Tamagochi
                 else if (answer == "7")
                 {
                     player.Money();
+                    player.CheckMoney();
+                }
+                else if (answer == "8")
+                {
+                    if (player.HasMoneyLeft() == true)
+                        pgucci.PrintLevel();
+                }
+                else
+                {
+                    Console.WriteLine("You have no money to do that task. You need to work to get money");
                 }
 
+                //Bytder den nuvarande tiden till tiden då man har avslutat en action.
                 DateTime end = DateTime.Now;
-
+                //Mäter tiden mellan när man avslutat sin senaste action med en ny action.
                 TimeSpan span = end - start;
 
-
+                //Mäter timespan seconds. Om det är delbart med 10, så läggs en extra tick till. Om det är mellan 10-19, så blir det en extra tick, och mellan 20-29 så blir det 2 extra ticks, osv. Detta är pga att det är en int.
                 for (int h = 0; h < span.Seconds / 10; h++)
                 {
                     tamaguccis[h].Tick();
 
                 }
 
+                pgucci.LevelUp();
 
 
 
+                //Startar om loopen och clearar all text.
                 Console.WriteLine("Press Enter to continue");
 
                 Console.ReadLine();
@@ -145,7 +165,7 @@ namespace Tamagochi
 
 
             }
-
+            //Om isAlive är false så avslutas loopen och samtidigt programmet.
             Console.WriteLine($"{tamaguccis[i].name} has unfortunetly died. Better luck next time.");
             Console.WriteLine("Press Enter to quit");
             Console.ReadLine();

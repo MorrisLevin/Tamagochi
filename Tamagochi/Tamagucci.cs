@@ -40,7 +40,7 @@ namespace Tamagochi
 
             hunger -= t;
             Tick();
-
+        
 
         }
 
@@ -119,6 +119,6 @@ namespace Tamagochi
 
 
 
-      
+
     }
 }

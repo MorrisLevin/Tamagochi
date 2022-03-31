@@ -11,7 +11,7 @@ namespace Tamagochi
 
 
 
-
+//Mängd pengar som spelare får. Om spelaren arbterar så tjänar dem mellan 1-5 kr.
         public void Money()
         {
             int m = generator.Next(1, 5);
@@ -21,6 +21,7 @@ namespace Tamagochi
 
         }
 
+//Här kollan spelaren deras mängd pengar.
         public void CheckMoney()
         {
             Console.WriteLine($"Money: {money}");
